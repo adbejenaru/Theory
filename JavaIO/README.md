@@ -63,9 +63,6 @@ if (socketChannel.read(buffer) > 0) {
 ![image](https://github.com/adbejenaru/Theory/assets/128550128/0c7642be-5a9d-4870-8129-921c35181a82)
 
 
-
-Desigur, voi explica `RandomAccessFile` în Java în limba română:
-
 `RandomAccessFile` este o clasă din Java folosită pentru a citi și a scrie în fișiere într-un mod de acces aleatoriu. Aceasta înseamnă că permite citirea sau scrierea în orice parte a fișierului în orice moment, nu doar citirea secvențială de la început la sfârșit sau scrierea secvențială. Clasa oferă funcționalitatea atât a claselor `DataInputStream`, cât și `DataOutputStream`.
 
 Iată câteva puncte cheie despre `RandomAccessFile`:
