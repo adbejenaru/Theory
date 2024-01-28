@@ -60,4 +60,5 @@ if (socketChannel.read(buffer) > 0) {
 
 În concluzie, modul neblocaj în Java NIO permite thread-urilor să gestioneze operațiunile de I/O într-un mod mai eficient, fără a fi blocat pe durata întregii operațiuni de citire sau scriere. Aceasta este o caracteristică valoroasă pentru aplicațiile care necesită scalabilitate și utilizare eficientă a resurselor, cum ar fi serverele de aplicații sau de date.
 
+![image](https://github.com/adbejenaru/Theory/assets/128550128/0c7642be-5a9d-4870-8129-921c35181a82)
 
