@@ -49,3 +49,38 @@ Desigur, voi explica conceptul de "threads" (fire de execuție) în Java în lim
 - **Dezavantaje**: Gestionarea thread-urilor poate fi complexă, iar sincronizarea necorespunzătoare poate duce la probleme precum blocaje ("deadlocks") și condiții de concurență.
 
 Aceasta este o prezentare generală a conceptului de thread-uri în Java. În practică, există multe alte aspecte detaliate și cazuri de utilizare specifice care pot fi explorate.
+
+
+### Starea Blocked/Waiting
+
+- **Definiție**: Starea "Blocked" sau "Waiting" a unui thread indică faptul că thread-ul nu este în execuție activă. Acest lucru se întâmplă de obicei atunci când thread-ul așteaptă o resursă sau o acțiune să se finalizeze pentru a putea continua execuția.
+
+### Cauze Comune
+
+1. **Sincronizare**: Cel mai frecvent, un thread intră în starea "Blocked" când încearcă să acceseze un bloc de cod sincronizat care este deja ocupat de alt thread. În acest caz, thread-ul va aștepta până când blocul sincronizat este eliberat.
+   
+   Exemplu:
+   ```java
+   synchronized (object) {
+       // Cod sincronizat
+   }
+   ```
+
+2. **Așteptarea Resurselor Externe**: Thread-urile pot intra în starea "Waiting" atunci când așteaptă completarea unei operațiuni de I/O, o acțiune de rețea sau alte tipuri de operațiuni care depind de resurse externe.
+
+3. **Metode Specifici de Așteptare**: Există metode în Java, cum ar fi `wait()`, `join()`, și `sleep()`, care pot pune un thread în starea de așteptare.
+   - `wait()`: Acesta este folosit pentru a spune unui thread să aștepte până când un alt thread invocă `notify()` sau `notifyAll()` pe același obiect.
+   - `join()`: Un thread A poate apela `join()` pe thread-ul B. Acest lucru va face ca thread-ul A să aștepte până când thread-ul B își termină execuția.
+   - `sleep()`: Face ca thread-ul curent să aștepte un număr specificat de milisecunde.
+
+### Implicații
+
+- **Eficiența**: Starea de așteptare este crucială pentru eficiența execuției, deoarece permite altor thread-uri să ruleze în timp ce unul așteaptă.
+- **Deadlock**: Situații de blocare ("deadlock") pot apărea dacă mai multe thread-uri așteaptă resurse blocate reciproc, ceea ce poate duce la blocarea permanentă a acestora.
+
+### Gestionare
+
+- Este important să se gestioneze corect sincronizarea și stările de așteptare pentru a evita probleme precum deadlocks și a asigura o execuție eficientă.
+- Utilizarea unor abordări avansate precum obiecte de sincronizare (ex. semafoare, latch-uri) și executori de thread-uri poate ajuta la o gestionare mai bună a thread-urilor și a stărilor lor.
+
+În concluzie, starea "Blocked/Waiting" a unui thread este esențială pentru sincronizarea și eficiența executării paralele în aplicații multi-threaded, dar necesită o gestionare atentă pentru a evita complicații precum blocajele.
