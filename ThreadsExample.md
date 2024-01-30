@@ -136,3 +136,14 @@ public class ThreadExample {
 - **`main`**: Pornim ambele thread-uri și așteptăm finalizarea lor folosind `join()` pe ambele. Acest lucru asigură că programul principal (`main`) nu se va termina înainte de finalizarea thread-urilor.
 
 Când rulați acest cod, veți observa că Thread 2 va intra în starea de așteptare până când Thread 1 termină execuția, după care va începe propriul său proces de execuție. Acest exemplu este simplificat pentru a ilustra conceptul; în practică, gestionarea thread-urilor poate fi mai complexă și necesită atenție la detalii precum sincronizarea și evitarea condițiilor de blocare.
+
+În exemplul dat, `thread1.join()` este utilizat pentru a face ca thread-ul curent (în acest caz, `thread2`) să aștepte finalizarea lui `thread1` înainte de a continua execuția sa. Deci, când apelăm `thread2.start()`, `thread2` începe execuția, dar ajunge la punctul unde se află `thread1.join()`, ceea ce face ca `thread2` să aștepte ca `thread1` să se termine înainte de a continua.
+
+Simplu spus, `thread1.join()` face ca `thread2` să se aștepte până când `thread1` termină execuția sa, astfel încât ordinea de execuție devine astfel:
+
+1. `thread1` este pornit folosind `thread1.start()`.
+2. `thread2` este pornit folosind `thread2.start()`.
+3. `thread2` ajunge la `thread1.join()` și așteaptă ca `thread1` să se termine.
+4. După ce `thread1` se termină, `thread2` continuă execuția sa și afișează mesajele ulterioare.
+
+Deci, `thread1` se execută înainte de `thread2` în acest scenariu, datorită utilizării `thread1.join()`.
