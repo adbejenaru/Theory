@@ -33,3 +33,16 @@ Termenul "proces" în informatică se referă la o instanță a unui program car
 5. **Starea Procesorului (Context)**: Include informații despre starea curentă a procesorului pentru procesul respectiv, cum ar fi conținutul registrelor. Aceasta este esențială pentru a putea opri temporar execuția unui proces și a-l relua mai târziu fără a pierde informații (de exemplu, în multitasking).
 
 În esență, un proces este o "bucată" de software care se execută, având alocate resurse și un context propriu, ceea ce îi permite să ruleze ca și cum ar avea controlul asupra întregului sistem, chiar dacă, în realitate, sistemul de operare gestionează executarea simultană a mai multor procese.
+___________________________________________________________________________________________________________________________________
+
+Termenul "thread" se referă la cea mai mică secvență de instrucțiuni programate care poate fi gestionată în mod independent de un sistem de operare. Iată o explicație detaliată:
+
+1. **Există în cadrul unui proces**: Un thread nu funcționează singur; el este o parte a unui proces. Un proces poate avea mai multe thread-uri, care execută diferite părți ale programului în paralel.
+
+2. **Fiecare proces are cel puțin un thread**: Acesta este cunoscut ca thread-ul principal sau "main thread". Este thread-ul inițial de la care pot fi create alte thread-uri.
+
+3. **Thread-urile împărtășesc resursele procesului**: Deoarece toate thread-urile dintr-un proces rulează în același spațiu de memorie, ele pot accesa aceleași date și resurse, cum ar fi memoria (de exemplu, heap-ul) și descriptorii de fișiere. Aceasta le permite să comunice între ele mai eficient, dar, de asemenea, necesită sincronizare pentru a evita conflictele.
+
+4. **Execuția Multithread**: Aceasta permite unui proces să execute mai multe sarcini sau sub-sarcini în mod concomitent. Acest lucru poate îmbunătăți performanța aplicațiilor care execută mai multe operațiuni care pot fi realizate în paralel sau pot aștepta în mod independent (de exemplu, așteptarea răspunsurilor de la rețea sau de la utilizator).
+
+Multithreading-ul este o caracteristică esențială a platformei Java, permițând dezvoltatorilor să creeze aplicații eficiente care pot gestiona multiple fluxuri de lucru simultan. De exemplu, într-o aplicație GUI, un thread poate gestiona interfața utilizatorului, în timp ce alte thread-uri pot procesa datele sau pot efectua operațiuni de intrare/ieșire fără a bloca interfața utilizatorului.
