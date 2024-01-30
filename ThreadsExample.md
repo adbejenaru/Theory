@@ -58,3 +58,19 @@ public class MainClass {
 În acest cod, am adăugat o buclă for în metoda `run()` pentru a simula o sarcină repetitivă și am folosit `Thread.sleep(500)` pentru a introduce o întârziere de 500 milisecunde între iterații, simulând astfel o procesare care durează ceva timp.
 
 Metoda `join()` este folosită pentru a aștepta ca thread-urile să se termine înainte de a continua execuția în thread-ul principal (`main`). Acest lucru este important pentru a asigura că programul principal nu se termină înainte ca toate thread-urile să-și finalizeze execuția. Dacă un thread este întrerupt în timp ce așteaptă (prin `join()`), va arunca o `InterruptedException`, pe care o prindem și o tratăm într-un bloc `try-catch`.
+
+A aștepta ca thread-urile să se termine înainte de a continua execuția în thread-ul principal (main) înseamnă că programul principal va suspenda execuția până când toate thread-urile lansate de acesta își încheie sarcinile. Acest lucru se realizează prin folosirea metodei `join()` pe fiecare thread creat.
+
+Metoda `join()` este o metodă de instanță a clasei `Thread` care blochează execuția curentă a thread-ului până când thread-ul pe care a fost apelată metoda `join()` își termină execuția. Dacă `join()` este apelată în thread-ul principal, thread-ul principal va aștepta până când thread-ul respectiv se termină.
+
+Acest mecanism este important din mai multe motive:
+
+1. **Finalizare ordonată**: Asigură că toate procesele secundare (thread-urile) au terminat sarcinile înainte de a încheia programul. Asta poate fi necesar pentru că thread-urile pot executa sarcini critice ale căror rezultate sunt necesare mai departe.
+
+2. **Prevenirea erorilor de date**: Dacă thread-ul principal ar continua să execute și să termine înainte ca thread-urile secundare să se încheie, aceasta ar putea duce la situații unde resursele folosite de thread-uri (cum ar fi fișiere sau conexiuni la baza de date) ar putea fi închise sau datele ar putea fi incomplete sau incoerente.
+
+3. **Coerența rezultatelor**: În multe cazuri, thread-urile secundare calculează date care trebuie să fie combinate sau verificate de thread-ul principal înainte ca programul să poată termina în mod corespunzător.
+
+4. **Evitarea întreruperii premature**: Dacă thread-ul principal ar termina execuția (de exemplu, dacă ajunge la sfârșitul metodei `main()`), întregul proces ar putea fi terminat de către sistemul de operare, ceea ce ar însemna că toate thread-urile sale ar fi întrerupte brusc, chiar dacă nu și-au completat execuția.
+
+Prin urmare, `join()` este o unealtă esențială în gestionarea execuției ordonate și asincrone în programarea multithreaded.
