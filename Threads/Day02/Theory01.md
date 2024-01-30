@@ -95,6 +95,43 @@ ________________________________________________________________________________
 
 În Java, metodele `wait()`, `notify()` și `notifyAll()` sunt folosite în contextul programării multi-thread pentru a permite thread-urilor să comunice între ele și să coordoneze acțiunile lor. Aceste metode sunt utilizate în contextul sincronizării și sunt disponibile în orice obiect, deoarece fac parte din clasa `Object`. Sunt esențiale pentru rezolvarea problemelor de tip producer-consumer, blocare și așteptare condițională.
 
+### Producer-Consumer
+
+Problema producer-consumer este un exemplu clasic de problemă de sincronizare în programarea concurentă. În această problemă, avem două tipuri de procese sau thread-uri:
+
+- **Producătorii (Producers)**: Acestea sunt responsabile pentru generarea datelor sau resurselor și le adaugă într-un buffer sau o coadă partajată.
+- **Consumatorii (Consumers)**: Acestea preiau sau procesează datele sau resursele adăugate de producători.
+
+Principalele provocări în implementarea unei soluții eficiente pentru problema producer-consumer sunt:
+
+1. **Sincronizarea Accesului la Buffer**: Asigurarea că producătorii și consumatorii nu accesează buffer-ul simultan pentru a evita coruperea datelor.
+2. **Gestionarea Buffer-ului Gol și Plin**: Producătorii nu ar trebui să adauge date în buffer dacă acesta este plin, iar consumatorii nu ar trebui să încerce să consume date dacă buffer-ul este gol.
+
+Pentru a aborda aceste probleme, se utilizează adesea metodele `wait()`, `notify()` și `notifyAll()` pentru a coordona acțiunile producătorilor și consumatorilor.
+
+### Blocare (Deadlock)
+
+Blocarea sau deadlock-ul este o situație în programarea concurentă în care două sau mai multe thread-uri sunt blocate pentru că fiecare așteaptă ca celelalte să elibereze resurse. Într-un deadlock, fiecare thread așteaptă pentru o resursă care este deținută de un alt thread, formând un ciclu de așteptări care nu poate fi rupt.
+
+Deadlock-urile sunt adesea rezultatul unei gestionări necorespunzătoare a sincronizării și al blocajelor (locks). Există patru condiții care trebuie să fie îndeplinite simultan pentru ca un deadlock să apară:
+
+1. **Excludere Mutuală**: Cel puțin o resursă trebuie să fie deținută în mod exclusiv de un thread la un moment dat.
+2. **Deținerea și Așteptarea**: Un thread deține cel puțin o resursă și așteaptă să obțină resurse suplimentare deținute de alte thread-uri.
+3. **Fără Preemțiune**: Resursele nu pot fi preluate forțat de la un thread; thread-ul trebuie să le elibereze voluntar.
+4. **Așteptare Circulară**: Există un set de thread-uri care așteaptă reciproc, formând un ciclu.
+
+Pentru prevenirea deadlock-urilor, programatorii trebuie să proiecteze cu atenție sistemele de sincronizare și să utilizeze tehnici precum ordonarea resurselor, preemțiunea sau detectarea deadlock-urilor.
+
+### Așteptare Condițională
+
+Așteptarea condițională se referă la situația în care un thread așteaptă (se blochează) până când o anumită condiție devine adevărată. Această tehnică este adesea utilizată în programarea concurentă pentru a gestiona dependențele între thread-uri.
+
+Un exemplu clasic este un thread care așteaptă ca o anumită cantitate de date să fie disponibilă într-un buffer înainte de a începe procesarea. În Java, așteptarea condițională este gestionată de obicei prin metodele `wait()` și `notify()`/`notifyAll()`:
+
+- Thread-ul așteptător apelează `wait()` pe un obiect, suspendându-și execuția.
+- Când un alt thread modifică starea obiectului într-un mod care îndeplinește condiția așteptată, acesta apelează `notify()` sau `notifyAll()` pentru a trezi thread-urile așteptătoare.
+- Thread-ul așteptător reia execuția pentru a verifica dacă condiția este îndeplinită și continuă procesarea dacă este adevărat
+
 ### 1. `wait()`
 Metoda `wait()` este folosită pentru a face un thread să aștepte până când un alt thread îl notifică. Când un thread apelează `wait()`, acesta eliberează lock-ul pe obiectul pe care îl deține și trece în starea de așteptare. Thread-ul rămâne în această stare până când un alt thread apelează `notify()` sau `notifyAll()` pe același obiect.
 
@@ -136,3 +173,4 @@ Metoda `notifyAll()` funcționează similar cu `notify()`, dar trezește toate t
 - Este important să alegeți între `notify()` și `notifyAll()` în funcție de situație. `notifyAll()` este mai sigur în cazul în care există mai multe condiții de așteptare, dar poate fi mai puțin eficient din punct de vedere al performanței, deoarece trezește toate thread-urile așteptând.
 
 Aceste metode sunt cruciale pentru gestionarea corectă și eficientă a thread-urilor în Java, permițând sincronizarea complexă și comunicația între thread-uri.
+
