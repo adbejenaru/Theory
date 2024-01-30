@@ -46,3 +46,22 @@ Termenul "thread" se referă la cea mai mică secvență de instrucțiuni progra
 4. **Execuția Multithread**: Aceasta permite unui proces să execute mai multe sarcini sau sub-sarcini în mod concomitent. Acest lucru poate îmbunătăți performanța aplicațiilor care execută mai multe operațiuni care pot fi realizate în paralel sau pot aștepta în mod independent (de exemplu, așteptarea răspunsurilor de la rețea sau de la utilizator).
 
 Multithreading-ul este o caracteristică esențială a platformei Java, permițând dezvoltatorilor să creeze aplicații eficiente care pot gestiona multiple fluxuri de lucru simultan. De exemplu, într-o aplicație GUI, un thread poate gestiona interfața utilizatorului, în timp ce alte thread-uri pot procesa datele sau pot efectua operațiuni de intrare/ieșire fără a bloca interfața utilizatorului.
+_________________________________________________________________________________________________________________________________-
+
+Programarea multithreaded în Java se referă la abilitatea limbajului Java de a suporta execuția concomitentă, adică execuția simultană a mai multor secvențe de cod. Java oferă un set robust de instrumente și clase care permit dezvoltatorilor să creeze și să gestioneze thread-uri, să sincronizeze codul pentru a evita condițiile de întrecere și să utilizeze modele de execuție paralelă. Iată câteva concepte cheie:
+
+1. **Suport încorporat pentru programarea concurentă**: Java oferă facilități încorporate pentru a permite execuția simultană a mai multor părți ale unei aplicații.
+
+2. **Construcții de concurență de nivel scăzut**:
+   - **Thread și Runnable**: Clasa `Thread` și interfața `Runnable` sunt mijloacele de bază pentru a crea thread-uri în Java. Implementezi interfața `Runnable` cu codul pe care vrei să-l execute un thread și apoi creezi o instanță de `Thread` pentru a-l rula.
+   - **Cuvântul cheie synchronized și blocări implicite**: Pentru a gestiona accesul concurent la resurse comune, Java folosește cuvântul cheie `synchronized` pentru a bloca un obiect în timp ce un thread îl folosește.
+
+3. **Construcții de concurență de nivel înalt**:
+   - **Pachetul java.util.concurrent**: Acesta oferă clase avansate pentru gestionarea concurenței, precum noi tipuri de lock-uri, thread pool-uri și structuri de date concurente.
+   - **Clase Synchronizer**: Clase precum `Semaphore` și `Exchanger` sunt folosite pentru a sincroniza thread-uri în situații specifice.
+   - **Colecții Thread-safe**: Sunt colecții proiectate să fie utilizate în medii multithread fără a fi nevoie de sincronizare externă.
+   - **Variabile Atomice, Lock-uri și condiții**: Acestea oferă un control mai fin al sincronizării, permitând operațiuni atomice pe variabile (adică executate complet fără întrerupere) și modele de lock-uri mai complexe.
+   - **Executori și ThreadPool-uri**: Facilități pentru gestionarea unui set de thread-uri pentru execuția task-urilor. ThreadPool-urile reutilizează thread-uri pentru a executa mai multe sarcini, ceea ce este mai eficient decât crearea unui nou thread pentru fiecare sarcină.
+   - **Paralelism Fork/Join**: Este un model de programare introdus în Java 7 care ajută la utilizarea eficientă a procesorilor multi-core prin descompunerea sarcinilor în sub-sarcini care pot fi procesate în paralel, apoi combinând rezultatele sub-sarcinilor în rezultatul final.
+
+Prin utilizarea acestor instrumente, programatorii Java pot scrie aplicații care efectuează mai multe operații în paralel, crescând astfel performanța și eficiența aplicațiilor, în special pe mașini cu mai multe nuclee de procesare.
