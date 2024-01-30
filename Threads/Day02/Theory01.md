@@ -91,7 +91,7 @@ public class Main {
 ### Beneficiul Acestui Abord
 Acest model permite ca alte operații din metoda `processTransaction` să se execute fără a aștepta blocarea sincronizării. Acest lucru este benefic atunci când avem cod care nu necesită sincronizare și nu dorim să-l încetinim inutil prin sincronizarea întregii metode.
 
-__________________________________________________________________________________________________________________________________________________________-
+________________________________________________________________________________________________________________________________________________________
 
 În Java, metodele `wait()`, `notify()` și `notifyAll()` sunt folosite în contextul programării multi-thread pentru a permite thread-urilor să comunice între ele și să coordoneze acțiunile lor. Aceste metode sunt utilizate în contextul sincronizării și sunt disponibile în orice obiect, deoarece fac parte din clasa `Object`. Sunt esențiale pentru rezolvarea problemelor de tip producer-consumer, blocare și așteptare condițională.
 
