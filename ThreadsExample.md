@@ -74,3 +74,65 @@ Acest mecanism este important din mai multe motive:
 4. **Evitarea întreruperii premature**: Dacă thread-ul principal ar termina execuția (de exemplu, dacă ajunge la sfârșitul metodei `main()`), întregul proces ar putea fi terminat de către sistemul de operare, ceea ce ar însemna că toate thread-urile sale ar fi întrerupte brusc, chiar dacă nu și-au completat execuția.
 
 Prin urmare, `join()` este o unealtă esențială în gestionarea execuției ordonate și asincrone în programarea multithreaded.
+
+
+
+
+
+Sigur, vă voi oferi un exemplu simplu în Java care ilustrează un caz în care un thread intră în starea "Blocked/Waiting". În acest exemplu, vom folosi două thread-uri: unul va aștepta finalizarea celuilalt folosind metoda `join()`, care este o modalitate comună de a pune un thread în starea de așteptare.
+
+### Exemplu de Cod
+
+```java
+public class ThreadExample {
+
+    public static void main(String[] args) throws InterruptedException {
+        // Crearea primului thread
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Simulăm o operațiune care durează 2 secunde
+                    Thread.sleep(2000);
+                    System.out.println("Thread 1 termină execuția.");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Crearea celui de-al doilea thread
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Așteptăm ca thread1 să termine
+                    System.out.println("Thread 2 așteaptă finalizarea Thread 1.");
+                    thread1.join();
+                    System.out.println("Thread 2 începe execuția după finalizarea Thread 1.");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Start pentru ambele thread-uri
+        thread1.start();
+        thread2.start();
+
+        // Așteptăm ca ambele thread-uri să termine pentru a finaliza programul
+        thread1.join();
+        thread2.join();
+
+        System.out.println("Ambele thread-uri au terminat execuția.");
+    }
+}
+```
+
+### Explicație
+
+- **Thread 1**: Simulează o operațiune care durează 2 secunde.
+- **Thread 2**: Așteaptă finalizarea lui Thread 1 folosind `thread1.join()`. Astfel, Thread 2 intră în starea "Waiting" până când Thread 1 își încheie execuția.
+- **`main`**: Pornim ambele thread-uri și așteptăm finalizarea lor folosind `join()` pe ambele. Acest lucru asigură că programul principal (`main`) nu se va termina înainte de finalizarea thread-urilor.
+
+Când rulați acest cod, veți observa că Thread 2 va intra în starea de așteptare până când Thread 1 termină execuția, după care va începe propriul său proces de execuție. Acest exemplu este simplificat pentru a ilustra conceptul; în practică, gestionarea thread-urilor poate fi mai complexă și necesită atenție la detalii precum sincronizarea și evitarea condițiilor de blocare.
