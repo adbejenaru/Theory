@@ -37,3 +37,72 @@ Sincronizarea thread-urilor este un aspect fundamental în programarea multi-thr
 - **Performanță**: Sincronizarea poate reduce performanța, deoarece thread-urile pot aștepta să intre în blocuri sincronizate.
 
 Sincronizarea thread-urilor este o parte esențială a programării multi-threaded și necesită o înțelegere clară și o atenție la detalii pentru a evita probleme precum inconsistentele datelor și deadlock-urile.
+
+
+Desigur, voi oferi un exemplu simplu în Java care ilustrează sincronizarea thread-urilor folosind cuvântul cheie `synchronized`. În acest exemplu, vom crea un cont bancar partajat și două thread-uri care vor încerca să depună și să retragă bani din același cont, demonstrând necesitatea sincronizării pentru a evita inconsistentele.
+
+### Exemplu de Cod
+
+```java
+public class BankAccount {
+    private int balance = 0;
+
+    // Metoda sincronizată pentru a depune bani
+    public synchronized void deposit(int amount) {
+        balance += amount;
+        System.out.println("Depus: " + amount + ", Balanță: " + balance);
+    }
+
+    // Metoda sincronizată pentru a retrage bani
+    public synchronized void withdraw(int amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            System.out.println("Retras: " + amount + ", Balanță: " + balance);
+        } else {
+            System.out.println("Fonduri insuficiente pentru a retrage: " + amount);
+        }
+    }
+}
+
+public class ThreadSynchronizationExample {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount();
+
+        // Thread pentru depunere
+        Thread depositThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                account.deposit(100);
+            }
+        });
+
+        // Thread pentru retragere
+        Thread withdrawThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                account.withdraw(50);
+            }
+        });
+
+        // Start pentru ambele thread-uri
+        depositThread.start();
+        withdrawThread.start();
+
+        // Așteptăm finalizarea ambelor thread-uri
+        try {
+            depositThread.join();
+            withdrawThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Explicație
+
+- **Clasa `BankAccount`**: Reprezintă un cont bancar cu metode sincronizate pentru depunere și retragere. Sincronizarea asigură că doar un thread poate executa o metodă la un moment dat, menținând astfel consistența balanței.
+- **Thread-uri**: Creăm două thread-uri, unul pentru depunere și unul pentru retragere. Ambele interacționează cu aceeași instanță a `BankAccount`, demonstrând necesitatea sincronizării.
+- **`main`**: În metoda principală, inițiem thread-urile și așteptăm ca acestea să se finalizeze.
+
+Când rulați acest cod, veți observa că operațiunile de depunere și retragere se execută în mod sincronizat, astfel încât balanța contului să rămână consistentă chiar și atunci când este accesată de multiple thread-uri simultan. Aceasta este o ilustrare simplificată a conceptului de sincronizare în Java, utilă în multe scenarii de programare multi-threaded.
