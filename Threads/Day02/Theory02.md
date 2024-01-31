@@ -25,7 +25,7 @@ Deadlock-ul apare în următoarele condiții, care trebuie să existe simultan:
 7. **Design și Testare Riguroasă**: O abordare atentă în design-ul sistemului și teste ample pot ajuta la identificarea și evitarea condițiilor care pot duce la deadlock.
 
 Evitarea deadlock-urilor necesită o atenție deosebită la detaliile design-ului de sistem și o bună înțelegere a interacțiunilor dintre diferite thread-uri și resursele pe care le accesează. În practică, o combinație a mai multor dintre aceste strategii este adesea cea mai eficientă metodă de a preveni deadlocks.
-______________________________________________________________________________________________________--
+_____________________________________________________________________________________________________
 
 
 Să creăm un exemplu simplu de deadlock în Java și apoi să discutăm o strategie pentru a preveni acest deadlock. În exemplul nostru, vom avea două thread-uri și două resurse (obiecte), iar fiecare thread va încerca să blocheze ambele resurse, dar în ordine inversă, ceea ce poate duce la un deadlock.
