@@ -108,3 +108,52 @@ These questions test a range of advanced Java OOP concepts. To create a complete
    - B) Reflection can only be used to inspect objects, not modify them.
    - C) Using Reflection significantly improves the performance of the application.
    - D) Reflection is primarily
+   - 
+#### 9. Reflection (continued)
+   - A) It allows an application to observe and modify its own behavior at runtime.
+   - B) Reflection can only be used to inspect objects, not modify them.
+   - C) Using Reflection significantly improves the performance of the application.
+   - D) Reflection is primarily used for compile-time type checking.
+   - **Correct Answer:** A
+
+#### 10. Encapsulation
+**Question:** What encapsulation property is violated if a class has public data fields?
+   - A) Data Hiding
+   - B) Inheritance
+   - C) Polymorphism
+   - D) Abstraction
+   - **Correct Answer:** A
+
+#### 11. Inheritance
+**Question:** What happens when a subclass in Java has a method with the same signature as a method in the superclass?
+   - A) The method in the subclass is hidden.
+   - B) The method in the superclass is overridden.
+   - C) A compilation error occurs.
+   - D) The method in the superclass is overloaded.
+   - **Correct Answer:** B
+
+#### 12. Abstract Classes
+**Question:** Which statement is true about abstract classes in Java?
+   - A) An abstract class can have both abstract and non-abstract methods.
+   - B) If a class has at least one abstract method, it must be declared abstract.
+   - C) An abstract class cannot have a constructor.
+   - D) Both A and B.
+   - **Correct Answer:** D
+
+#### 13. Generic Types
+**Question:** What is the purpose of wildcards (`?`) in Java generics?
+   - A) To specify an unknown type.
+   - B) To enforce type safety.
+   - C) To allow the creation of generic instances.
+   - D) To restrict a type to a specific class hierarchy.
+   - **Correct Answer:** A
+
+#### 14. Collections Framework
+**Question:** In the Java Collections Framework, which is a true statement about the `HashSet` and `TreeSet` classes?
+   - A) `HashSet` maintains elements in sorted order, while `TreeSet` does not.
+   - B) `TreeSet` allows duplicate elements, but `HashSet` does not.
+   - C) `HashSet` offers constant time performance for basic operations, while `TreeSet` does not.
+   - D) Both `HashSet` and `TreeSet` are synchronized.
+   - **Correct Answer:** C
+
+These questions cover a range of topics from encapsulation and inheritance to more complex areas like generics and the collections framework, providing a thorough test of a student's understanding of Java OOP concepts.
