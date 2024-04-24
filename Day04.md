@@ -13,3 +13,44 @@ Reflection în Java este un proces prin care un program poate interoga sau modif
 6. **Modificarea Câmpurilor**: Reflection permite modificarea valorilor câmpurilor obiectelor, chiar dacă aceste câmpuri sunt private sau finale, sub rezerva unor restricții de securitate.
 
 Reflection este un instrument puternic, dar vine și cu dezavantaje, cum ar fi performanța scăzută comparativ cu accesul direct la câmpuri sau metode, riscuri de securitate dacă nu este gestionat corespunzător, și poate complica designul aplicației. Este cel mai bine utilizat în cazuri specifice unde flexibilitatea la runtime este esențială, cum ar fi în framework-uri, biblioteci generice, sau pentru interoperabilitatea cu codul care nu a fost disponibil la timpul compilării.
+
+## Exemplul 1.
+
+### 1. Definirea pachetului
+```java
+package reflectionexample.reflection.example01;
+```
+Aici, codul este organizat într-un pachet specific, ceea ce este o bună practică pentru organizarea codului în proiecte Java mai mari.
+
+### 2. Importarea clasei necesare
+```java
+import java.lang.reflect.Method;
+```
+Se importă clasa `Method` din pachetul `java.lang.reflect`. Aceasta este folosită pentru a reprezenta metodele unei clase la nivel de cod.
+
+### 3. Definirea clasei și metodei principale
+```java
+public class ReflectionExample {
+    public static void main(String[] args) throws ClassNotFoundException {
+```
+Aici, se definește o clasă publică `ReflectionExample` cu o metodă `main`, care este punctul de intrare într-un program Java. Metoda `main` declară că poate arunca o excepție `ClassNotFoundException`, care se poate întâmpla dacă numele clasei specificat în `Class.forName` nu este găsit.
+
+### 4. Obținerea obiectului Class
+```java
+        Class<?> clazz = Class.forName("java.util.ArrayList");
+```
+Această linie de cod obține obiectul `Class` pentru clasa `java.util.ArrayList`. Operatorul `Class<?>` este o modalitate generică de a se referi la orice clasă, iar `Class.forName` încarcă clasa specificată prin numele său complet.
+
+### 5. Extracția și afișarea metodelor
+```java
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Method method : methods) {
+            System.out.println("Method is " + method.getName());
+        }
+    }
+}
+```
+`getDeclaredMethods()` este apelat pe obiectul `Class` pentru a recupera toate metodele declarate de clasa `ArrayList` (incluzând metodele private, protejate și pachetului, dar nu și cele moștenite). Apoi, pentru fiecare metodă obținută, se afișează numele metodei utilizând `System.out.println`.
+
+### Rezumatul funcționalității
+Codul utilizează reflection pentru a interoga structura clasei `ArrayList` și a afișa numele fiecărei metode. Aceasta poate fi folosită pentru a înțelege structura internă a unei clase fără a consulta documentația sau codul sursă, sau poate fi utilă în dezvoltarea unor unelte care necesită procesare dinamică a informațiilor despre obiectele de clasă. Această tehnică este des utilizată în dezvoltarea de framework-uri și biblioteci.
