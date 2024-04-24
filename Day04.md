@@ -54,3 +54,50 @@ Această linie de cod obține obiectul `Class` pentru clasa `java.util.ArrayList
 
 ### Rezumatul funcționalității
 Codul utilizează reflection pentru a interoga structura clasei `ArrayList` și a afișa numele fiecărei metode. Aceasta poate fi folosită pentru a înțelege structura internă a unei clase fără a consulta documentația sau codul sursă, sau poate fi utilă în dezvoltarea unor unelte care necesită procesare dinamică a informațiilor despre obiectele de clasă. Această tehnică este des utilizată în dezvoltarea de framework-uri și biblioteci.
+
+## Exemplul 2.
+
+### Clasa `Person`
+Clasa `Person` are două proprietăți private: `name` și `age`. Există două constructori, unul fără parametri și unul cu parametri. Clasa include metode getter și setter pentru ambele proprietăți, precum și o metodă `printDetails()` care afișează detaliile despre `Person`.
+
+### Clasa `ReflectionDemo`
+Clasa `ReflectionDemo` folosește reflection pentru a manipula și invoca metode pe instanța `Person`.
+
+1. **Crearea Instanței**:
+   ```java
+   Person person = new Person();
+   ```
+   Se creează o instanță a clasei `Person` folosind constructorul fără parametri.
+
+2. **Obținerea Clasei**:
+   ```java
+   Class<?> clazz = person.getClass();
+   ```
+   Se obține obiectul `Class` asociat instanței `person`. Acesta este folosit pentru a accesa informații despre structura clasei.
+
+3. **Accesul și Modificarea Câmpului `name`**:
+   ```java
+   Field nameField = clazz.getDeclaredField("name");
+   nameField.setAccessible(true);
+   nameField.set(person, "Andrei");
+   ```
+   Se obține obiectul `Field` pentru câmpul `name` și se setează acest câmp ca accesibil (chiar dacă este privat). Apoi, valoarea acestui câmp este modificată în "Andrei".
+
+4. **Accesul și Modificarea Câmpului `age`**:
+   ```java
+   Field ageField = clazz.getDeclaredField("age");
+   ageField.setAccessible(true);
+   ageField.setInt(person, 30);
+   ```
+   Similar cu câmpul `name`, se obține acces la câmpul `age`, se face accesibil și apoi i se atribuie valoarea 30.
+
+5. **Invocarea Metodei `printDetails()`**:
+   ```java
+   Method printMethod = clazz.getDeclaredMethod("printDetails");
+   printMethod.setAccessible(true);
+   printMethod.invoke(person);
+   ```
+   Se obține metoda `printDetails`, se face accesibilă și este invocată pe instanța `person`. Aceasta va afișa "Numele este Andrei iar varsta este 30".
+
+### Utilitatea și Limitările Reflection
+Această demonstrație arată cum reflection poate fi folosit pentru a ocoli accesul normal la metode și câmpuri, permițând modificarea și invocarea acestora chiar dacă sunt private. Astfel, reflection poate fi extrem de util pentru testarea, depurarea și dezvoltarea de framework-uri, dar trebuie folosit cu precauție datorită impactului său asupra securității și performanței. Facilitarea accesului la membrii privați poate încălca principiul încapsulării, iar manipularea datelor în acest mod poate duce la comportamente neașteptate ale programului.
