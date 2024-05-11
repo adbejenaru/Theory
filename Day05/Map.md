@@ -31,8 +31,6 @@ Interfața `Map` oferă o flexibilitate remarcabilă și putere în gestionarea 
 
 ![image](https://github.com/adbejenaru/Theory/assets/128550128/0404ea41-c2e0-425b-bdc6-9aa8e543d147)
 
-Imaginea pe care ai încărcat-o ilustrează arhitectura internă a unei structuri de date `HashMap` în Java și modul în care funcționează metodele `equals` și `hashCode`, care sunt esențiale pentru gestionarea corectă a cheilor în cadrul `HashMap`.
-
 ### Explicarea Funcționării `HashMap` în Java
 
 `HashMap` în Java este o structură de date care stochează perechi de cheie-valoare și permite accesul rapid la valoare folosind cheia. Acesta este cum funcționează:
