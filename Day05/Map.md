@@ -31,27 +31,29 @@ Interfața `Map` oferă o flexibilitate remarcabilă și putere în gestionarea 
 
 ![image](https://github.com/adbejenaru/Theory/assets/128550128/0404ea41-c2e0-425b-bdc6-9aa8e543d147)
 
-### Explicarea Funcționării `HashMap` în Java
+### Cum Funcționează `HashMap` în Java
 
-`HashMap` în Java este o structură de date care stochează perechi de cheie-valoare și permite accesul rapid la valoare folosind cheia. Acesta este cum funcționează:
+**1. Introducerea unei Perechi Cheie-Valoare:**
+- **Generarea Codului Hash:**
+  - Când adaugi o pereche cheie-valoare folosind `hashMap.put("hello", "world");`, Java invocă metoda `hashCode()` definită pentru obiectul cheie pentru a obține un cod hash. Această metodă trebuie să returneze un număr întreg, indiferent de tipul de date al cheii.
+- **Determinarea Indexului în Array:**
+  - Codul hash obținut este apoi folosit pentru a calcula indexul în array-ul intern al `HashMap`. Acest index este calculat de obicei prin aplicarea unei funcții de reducere a hashului, cum ar fi `(hashCode ^ (hashCode >>> 16)) & (capacitate - 1)`, unde capacitatea este mărimea internă a array-ului, de obicei o putere a lui 2.
 
-1. **Introducerea unei Perechi Cheie-Valoare**:
-   - Când introduci o pereche cheie-valoare (de exemplu, `hashMap.put("hello", "world");`), Java folosește cheia pentru a genera un cod hash.
-   - Codul hash este calculat folosind metoda `hashCode()` care este definită pe obiectul cheie.
+**2. Gestionarea Coliziunilor:**
+- **Structura de Date pentru Coliziuni:**
+  - Dacă două chei diferite produc același index de array sau același cod hash după procesarea funcției de hash, acestea sunt plasate în același "bucket". Inițial, `HashMap` folosea liste înlănțuite pentru a gestiona aceste coliziuni. Cu toate acestea, începând cu Java 8, dacă un bucket depășește un anumit prag de ocupare (de obicei 8 elemente), lista înlănțuită este transformată într-un arbore roșu-negru pentru a îmbunătăți performanța căutării.
+- **Căutarea Valoarei:**
+  - Atunci când se execută o operație de căutare, cum ar fi `hashMap.get("key")`, `HashMap` utilizează hash-ul cheii pentru a identifica rapid bucket-ul corect, iar apoi parcurge structura de date asociată bucket-ului (fie listă, fie arbore) utilizând metoda `equals()` pentru a găsi și returna valoarea asociată cheii.
 
-2. **Determinarea Indexului în Array**:
-   - Codul hash este folosit pentru a determina un index în array-ul intern al `HashMap`.
-   - Calculul indexului ajută la plasarea eficientă a valorii în array pentru a minimiza căutările.
+**3. Importanța Metodelor `equals()` și `hashCode()`:**
+- **Corectitudinea Implementării:**
+  - Pentru ca `HashMap` să funcționeze corect și eficient, este esențial ca obiectele utilizate ca chei să implementeze adecvat metodele `equals()` și `hashCode()`. Metoda `equals()` trebuie să asigure că două obiecte considerate egale generează același cod hash.
+- **Consistența:**
+  - Consistența dintre `equals()` și `hashCode()` asigură că cheile egale vor fi întotdeauna mapate în același bucket, iar `HashMap` va putea găsi corect elementele chiar și după multiple inserții și ștergeri, oferind acces rapid și predictibil.
 
-3. **Gestionarea Coliziunilor**:
-   - Dacă două sau mai multe chei generează același index (cunoscute ca coliziuni), `HashMap` le gestionează stocând perechile cheie-valoare într-o listă înlănțuită (sau în structuri mai complexe, cum ar fi arborii roșu-negru, în versiunile mai recente de Java) la acel index.
-   - Atunci când se caută o valoare, `HashMap` parcurge această listă folosind metoda `equals()` pentru a găsi cheia corectă și a returna valoarea asociată.
+**4. Performanța `HashMap`:**
+- **Complexitate Temporală:**
+  - `HashMap` oferă, în cazul ideal, o complexitate temporală medie \(O(1)\) pentru operațiile de adăugare, ștergere și accesare. Aceasta este una dintre principalele sale avantaje, făcând-o extrem de utilă pentru aplicații care necesită acces rapid la date bazate pe chei. 
 
-4. **Importanța `equals()` și `hashCode()`**:
-   - Corectitudinea implementărilor `equals()` și `hashCode()` este crucială pentru performanța și acuratețea `HashMap`.
-   - `equals()` trebuie să asigure că două obiecte considerate egale primesc același cod hash.
-   - Consistența dintre `equals()` și `hashCode()` asigură că elementele sunt găsite corect chiar și după multe inserții și ștergeri.
-
-Această structură permite `HashMap` să ofere inserții, ștergeri și accesări cu o complexitate temporală medie foarte rapidă, ideală pentru utilizare în aplicații care necesită acces rapid la date bazate pe chei.
-
+În concluzie, `HashMap` este un instrument puternic și versatil în Java, fiind adecvat pentru gestionarea eficientă a seturilor de date mari unde accesul rapid la elemente este esențial. Implementările corecte ale metodelor `hashCode()` și `equals()` sunt fundamentale pentru a asigura performanța optimă a acestei structuri de date.
 
