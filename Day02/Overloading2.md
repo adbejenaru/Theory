@@ -84,15 +84,28 @@ Dog: getAnimal() method
 - **Numărul și Tipurile Parametrilor**: Nici numărul, nici tipurile parametrilor nu sunt schimbate.
 - **Excepții**: Metoda suprascrisă aruncă `FileNotFoundException`, care este o subclasă a lui `IOException`.
 
+În Java, conceptul care explică de ce `polymorphicAnimal.getAnimal()` apelează metoda din clasa `Dog` și nu din clasa `Animal` se numește **polimorfism**. Polimorfismul permite obiectelor să fie tratate ca instanțe ale clasei lor de bază, dar să folosească implementările metodei suprascrise din clasele lor derivate.
 
-Sigur, iată un exemplu complet care ilustrează cum se suprascrie o metodă în Java, respectând regulile menționate.
+### Explicația Polimorfismului
 
-### Clasa de Bază (Superclass)
+1. **Tipul de Referință vs. Tipul de Obiect**:
+   - **Tipul de Referință**: Tipul variabilei `polymorphicAnimal` este `Animal`.
+   - **Tipul de Obiect**: Tipul efectiv al obiectului instanțiat este `Dog`.
+
+   Chiar dacă referința este de tip `Animal`, obiectul real este de tip `Dog`.
+
+2. **Legarea Dinamică (Dynamic Binding)**:
+   - Java folosește legarea dinamică (sau tardiă) pentru metodele de instanță. Asta înseamnă că metoda care este apelată este determinată la runtime în funcție de tipul real al obiectului, nu în funcție de tipul referinței.
+   - Când se apelează `polymorphicAnimal.getAnimal()`, JVM-ul determină tipul real al obiectului (`Dog`) și apelează metoda suprascrisă din `Dog`.
+
+### Cod pentru Ilustrare
+
+Să vedem din nou codul pentru clarificare:
 
 ```java
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
-// Clasa de bază
 class Animal {
     public Animal getAnimal() throws IOException {
         // implementarea metodei
@@ -100,14 +113,7 @@ class Animal {
         return new Animal();
     }
 }
-```
 
-### Subclasa (Subclass)
-
-```java
-import java.io.FileNotFoundException;
-
-// Subclasa
 class Dog extends Animal {
     @Override
     public Dog getAnimal() throws FileNotFoundException {
@@ -116,20 +122,10 @@ class Dog extends Animal {
         return new Dog();
     }
 }
-```
 
-### Clasa Principală pentru Testare
-
-```java
 public class Main {
     public static void main(String[] args) {
         try {
-            Animal animal = new Animal();
-            animal.getAnimal();
-
-            Dog dog = new Dog();
-            dog.getAnimal();
-
             Animal polymorphicAnimal = new Dog();
             polymorphicAnimal.getAnimal();
         } catch (IOException e) {
@@ -139,31 +135,24 @@ public class Main {
 }
 ```
 
-### Explicație
+### Output-ul Programului
 
-1. **Clasa de Bază (Animal)**:
-   - Metoda `getAnimal` returnează un obiect de tip `Animal` și aruncă o excepție de tip `IOException`.
-
-2. **Subclasa (Dog)**:
-   - Metoda suprascrisă `getAnimal` returnează un obiect de tip `Dog`, care este un subtip al lui `Animal`, și aruncă o excepție de tip `FileNotFoundException`, care este o subclasă a lui `IOException`.
-
-3. **Clasa Principală (Main)**:
-   - Creează instanțe ale claselor `Animal` și `Dog`.
-   - Apelează metodele `getAnimal` pentru fiecare instanță.
-   - Demonstrează polimorfismul prin atribuirea unei instanțe de `Dog` unei referințe de tip `Animal`.
-
-### Output
 La rularea acestui program, output-ul va fi:
 ```
-Animal: getAnimal() method
-Dog: getAnimal() method
 Dog: getAnimal() method
 ```
 
-### Detalii Importante
+### De ce se Apelează Metoda din `Dog`
 
-- **Tipul de Returnare**: În metoda suprascrisă din `Dog`, tipul de returnare este `Dog`, un subtip al lui `Animal`.
-- **Numărul și Tipurile Parametrilor**: Nici numărul, nici tipurile parametrilor nu sunt schimbate.
-- **Excepții**: Metoda suprascrisă aruncă `FileNotFoundException`, care este o subclasă a lui `IOException`.
+1. **Crearea Obiectului**:
+   - `Animal polymorphicAnimal = new Dog();` creează un obiect de tip `Dog`, dar referința este de tip `Animal`.
 
-Acest exemplu complet arată cum se poate suprascrie o metodă în Java, respectând regulile impuse de limbaj.
+2. **Apelarea Metodei**:
+   - `polymorphicAnimal.getAnimal();` este un apel polimorfic. Chiar dacă tipul referinței este `Animal`, tipul real al obiectului este `Dog`.
+
+3. **Legarea Dinamică**:
+   - JVM-ul la runtime identifică că `polymorphicAnimal` este de fapt un `Dog` și apelează metoda `getAnimal()` din clasa `Dog`.
+
+### Concluzie
+
+Polimorfismul și legarea dinamică permit ca metodele suprascrise să fie apelate în funcție de tipul real al obiectului, chiar dacă referința este de tipul clasei de bază. Acest lucru face posibilă apelarea metodei `getAnimal()` din clasa `Dog` atunci când tipul referinței este `Animal`, dar tipul obiectului este `Dog`.
